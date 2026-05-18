@@ -652,6 +652,16 @@ function loadTrack(index, autoPlay = true) {
   document.getElementById("panel-song-genre").textContent = song.genre;
   document.getElementById("panel-song-price").textContent = song.price;
 
+  // Atualizar dinamicamente o Spotlight Hero Banner se for a faixa principal (index 0)
+  if (index === 0) {
+    const heroTitle = document.getElementById("hero-title");
+    const heroDesc = document.getElementById("hero-description");
+    if (heroTitle && heroDesc) {
+      heroTitle.textContent = song.artistName.toUpperCase();
+      heroDesc.textContent = `A sensação do momento em Moçambique com a chancela da SJ Machel Agency. Ouve agora o grande single de sucesso "${song.title}" (${song.genre}) e apoia adquirindo a versão Master de alta-fidelidade na nossa loja digital.`;
+    }
+  }
+
   const lyricsHtml = song.lyrics.split("\n").map((line, idx) => {
     const active = idx === 0 ? "active" : "";
     return `<p class="lyric-line ${active}">${line}</p>`;

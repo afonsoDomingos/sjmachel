@@ -118,165 +118,205 @@ const Order = mongoose.model('Order', OrderSchema);
 // ==========================================================================
 async function seedDatabase() {
   try {
-    // A. Seed de Artistas
-    const artistCount = await Artist.countDocuments();
-    if (artistCount === 0) {
-      console.log('🌱 Banco vazio. A semear roster de artistas padrão...');
-      const defaultArtists = [
-        {
-          id: "yasmine-cruz",
-          name: "Yasmine Cruz",
-          genre: "Amapiano",
-          bannerImg: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600&auto=format&fit=crop",
-          photo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=300&auto=format&fit=crop",
-          bio: "Yasmine Cruz é a sensação do Amapiano e Soul Moçambicano. Com a sua voz aveludada e batidas profundas, tem conquistado tabelas internacionais e arrastado multidões com a chancela da SJ Machel.",
-          baseFee: 50000,
-          hourlyRate: 15000
-        },
-        {
-          id: "dj-machel",
-          name: "DJ Machel",
-          genre: "Afro House",
-          bannerImg: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600&auto=format&fit=crop",
-          photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop",
-          bio: "Diretor musical e mentor da SJ Machel Agency. Especialista em fundir os ritmos tradicionais da Marrabenta com o dinamismo hipnótico e ritmos tribais do Afro House.",
-          baseFee: 40000,
-          hourlyRate: 12000
-        },
-        {
-          id: "valdano-king",
-          name: "Valdano King",
-          genre: "Marrabenta",
-          bannerImg: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600&auto=format&fit=crop",
-          photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
-          bio: "A voz romântica da agência. Valdano traz o resgate histórico da Marrabenta clássica com arranjos modernos de R&B e Pop Afro para derreter corações.",
-          baseFee: 30000,
-          hourlyRate: 10000
-        },
-        {
-          id: "os-madjaha",
-          name: "Os Madjaha",
-          genre: "Pandza",
-          bannerImg: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=600&auto=format&fit=crop",
-          photo: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop",
-          bio: "Energia, pulsação e dança pura. O grupo Os Madjaha representa a vertente Pandza de alta velocidade, ideais para festivais, comícios e agitação pura.",
-          baseFee: 25000,
-          hourlyRate: 8000
-        }
-      ];
-      await Artist.insertMany(defaultArtists);
-      console.log('✅ Roster de artistas semeado com sucesso!');
-    }
+    // Limpar coleções existentes para garantir que apenas os artistas corretos da agência permaneçam no MongoDB Atlas
+    console.log('🧹 A limpar registos antigos do MongoDB Atlas...');
+    await Artist.deleteMany({});
+    await Song.deleteMany({});
+    await Event.deleteMany({});
+    
+    console.log('🌱 A semear novo roster oficial de artistas da SJ Machel...');
+    const defaultArtists = [
+      {
+        id: "lickson-sacur",
+        name: "Lickson Sacur",
+        genre: "Kizomba & AfroHouse",
+        bannerImg: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop",
+        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop",
+        bio: "Lickson Sacur é a sensação do Kizomba e AfroHouse em Moçambique. Com ritmos quentes e presença de palco magnética, é uma das maiores referências de pista de dança nacionais.",
+        baseFee: 45000,
+        hourlyRate: 10000
+      },
+      {
+        id: "vibe-krg",
+        name: "Vibe Krg",
+        genre: "Rap",
+        bannerImg: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600&auto=format&fit=crop",
+        photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
+        bio: "Líder da nova escola do Rap nacional. Vibe Krg combina lírica afiada, flows extremamente dinâmicos e rimas com a força das ruas de Maputo.",
+        baseFee: 35000,
+        hourlyRate: 8000
+      },
+      {
+        id: "arramane-music",
+        name: "Arramane Music",
+        genre: "Marrabenta",
+        bannerImg: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop",
+        photo: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=300&auto=format&fit=crop",
+        bio: "A essência viva da Marrabenta moçambicana. Arramane Music funde guitarras clássicas tradicionais com arranjos contemporâneos de percussão urbana.",
+        baseFee: 30000,
+        hourlyRate: 7000
+      },
+      {
+        id: "guilman-silva",
+        name: "GuilMan Silva",
+        genre: "Kizomba",
+        bannerImg: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600&auto=format&fit=crop",
+        photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop",
+        bio: "A voz romântica do Kizomba moderno. GuilMan Silva encanta corações por todo Moçambique com as suas melodias suaves e letras apaixonadas.",
+        baseFee: 25000,
+        hourlyRate: 6000
+      },
+      {
+        id: "lew-robert",
+        name: "Lew Robert",
+        genre: "Kizomba",
+        bannerImg: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
+        photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=300&auto=format&fit=crop",
+        bio: "Lew Robert traz a energia do Zouk e Kizomba para as pistas. Coreografias dinâmicas e batidas envolventes fazem dele um artista completo.",
+        baseFee: 25000,
+        hourlyRate: 6000
+      },
+      {
+        id: "libra-krg",
+        name: "Libra Krg",
+        genre: "Rap",
+        bannerImg: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=600&auto=format&fit=crop",
+        photo: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop",
+        bio: "O peso do Rap Consciente. Libra Krg aborda temas de intervenção social de forma lírica, expressando os anseios e as vozes da juventude.",
+        baseFee: 35000,
+        hourlyRate: 8000
+      }
+    ];
+    await Artist.insertMany(defaultArtists);
+    console.log('✅ 6 Artistas da agência semeados com sucesso!');
 
     // B. Seed de Músicas
-    const songCount = await Song.countDocuments();
-    if (songCount === 0) {
-      console.log('🌱 Banco vazio. A semear catálogo de músicas padrão...');
-      const defaultSongs = [
-        {
-          id: "song-1",
-          title: "Amapiano Breeze",
-          artistId: "yasmine-cruz",
-          artistName: "Yasmine Cruz",
-          genre: "Amapiano",
-          coverUrl: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&auto=format&fit=crop",
-          audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-          price: 50,
-          duration: "6:12",
-          lyrics: `[Intro]\nSJ Machel Agency apresenta...\nYasmine Cruz no comando!\nSentir a brisa, sentir o baixo...\n\n[Verso 1]\nVem comigo que a noite é nossa\nMaputo brilha na escuridão\nNão há problemas que nos dividam\nEsquece tudo, ouve esta canção\n\n[Refrão]\nAmapiano breeze a soprar\nEste ritmo vai-nos levar\nMoçambique inteiro a dançar\nAmapiano breeze a soprar!`
-        },
-        {
-          id: "song-2",
-          title: "Sabor de Marrabenta",
-          artistId: "dj-machel",
-          artistName: "DJ Machel ft. Valdano King",
-          genre: "Marrabenta",
-          coverUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=300&auto=format&fit=crop",
-          audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-          price: 50,
-          duration: "7:05",
-          lyrics: `[Instrumental Solo]\nMarrabenta clássica misturada...\nDJ Machel na mesa de mistura!\nValdano King na voz!\n\n[Verso 1]\nRecordo o tempo dos nossos pais\nDançavam juntos na Mafalala\nRitmo quente que não morre mais\nFica na alma, ninguém cala\n\n[Refrão]\nÉ marrabenta, é Moçambique\nDJ Machel dá o clique\nDança, avô, dança, avó\nMarrabenta é o nosso farol!`
-        },
-        {
-          id: "song-3",
-          title: "Pandza Bassline",
-          artistId: "os-madjaha",
-          artistName: "Os Madjaha",
-          genre: "Pandza",
-          coverUrl: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=300&auto=format&fit=crop",
-          audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-          price: 45,
-          duration: "5:44",
-          lyrics: `[Intro]\nDJ, sobe o Pandza!\nOs Madjaha chegaram!\nToda a gente no chão!\n\n[Verso 1]\nVem com força, mexe o pé\nEsta batida tem axé\nPandza moderno com energia\nDançamos todos na alegria\n\n[Refrão]\nBate o pé, bate o chão\nO Pandza é a nossa paixão\nMaputo explode de emoção!`
-        },
-        {
-          id: "song-4",
-          title: "Afro House Ritual",
-          artistId: "dj-machel",
-          artistName: "DJ Machel",
-          genre: "Afro House",
-          coverUrl: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=300&auto=format&fit=crop",
-          audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-          price: 60,
-          duration: "5:02",
-          lyrics: `[Instrumental Profundo]\n[Drums de Tribo]\nSente a percussão da terra...\n\n[Verso Único]\nA noite cai na floresta urbana\nO tambor chama a tribo humana\nDançamos livres sob a lua\nA alma eleva-se na rua\n\n[Refrão]\nRitual, ritual\nAfro House espiritual!`
-        },
-        {
-          id: "song-5",
-          title: "Sonhos de Maputo",
-          artistId: "yasmine-cruz",
-          artistName: "Yasmine Cruz",
-          genre: "Amapiano",
-          coverUrl: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop",
-          audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-          price: 50,
-          duration: "6:02",
-          lyrics: `[Intro]\nMaputo... cidade das acácias...\nSonhos que voam...\n\n[Verso 1]\nCaminho lento junto à marginal\nA brisa do mar é celestial\nQuero viver e amar sem fim\nMaputo mora dentro de mim\n\n[Refrão]\nSonhos de Maputo a brilhar\nSob as estrelas do mar\nA nossa voz vai ecoar!`
-        }
-      ];
-      await Song.insertMany(defaultSongs);
-      console.log('✅ Catálogo de músicas semeado com sucesso!');
-    }
+    console.log('🌱 A semear catálogo de músicas padrão dos novos artistas...');
+    const defaultSongs = [
+      {
+        id: "song-1",
+        title: "Amor de Kizomba",
+        artistId: "lickson-sacur",
+        artistName: "Lickson Sacur",
+        genre: "Kizomba",
+        coverUrl: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        price: 50,
+        duration: "6:12",
+        lyrics: `[Intro]\nLickson Sacur na voz...\nSJ Machel Agency!\nSente o Kizomba a entrar...\n\n[Verso 1]\nQuando te vi dançar\nO mundo inteiro parou\nQuero te abraçar\nSente o toque do amor\n\n[Refrão]\nÉ amor de Kizomba na pista\nNinguém resiste a esta dança\nVem comigo, minha querida\nMoçambique na nossa lembrança!`
+      },
+      {
+        id: "song-2",
+        title: "Rap Arena",
+        artistId: "vibe-krg",
+        artistName: "Vibe Krg",
+        genre: "Rap",
+        coverUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        price: 50,
+        duration: "7:05",
+        lyrics: `[Intro]\nVibe Krg no mic!\nKRG Squad!\nSobe o volume do baixo!\n\n[Verso 1]\nLírica afiada, mente de mestre\nFlow que destrói o que não presta\nRap de verdade nas avenidas\nMaputo inteira com mãos subidas\n\n[Refrão]\nEsta é a nossa arena do Rap\nO beat bate e o flow não para\nFaz barulho, sente a energia\nVibe Krg na tua cara!`
+      },
+      {
+        id: "song-3",
+        title: "Marrabenta Viva",
+        artistId: "arramane-music",
+        artistName: "Arramane Music",
+        genre: "Marrabenta",
+        coverUrl: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        price: 45,
+        duration: "5:44",
+        lyrics: `[Intro]\nArramane Music na guitarra!\nVamos dançar o nosso ritmo!\nMarrabenta de raiz!\n\n[Verso 1]\nToca viola, bate o tambor\nMarrabenta é ritmo e amor\nDas terras do sul ao norte profundo\nLevamos a nossa dança ao mundo\n\n[Refrão]\nMarrabenta viva, Marrabenta pura\nEsta é a nossa rica cultura\nDança Maputo, canta Beira\nMarrabenta é de primeira!`
+      },
+      {
+        id: "song-4",
+        title: "Sedução",
+        artistId: "guilman-silva",
+        artistName: "GuilMan Silva",
+        genre: "Kizomba",
+        coverUrl: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+        price: 60,
+        duration: "5:02",
+        lyrics: `[Intro]\nGuilMan Silva...\nA voz romântica...\nEscuta esta melodia...\n\n[Verso 1]\nO teu olhar me seduz\nA tua voz me conduz\nNeste compasso do Zouk\nFomos feitos um para o outro\n\n[Refrão]\nSedução na noite quente\nKizomba que une a gente\nFica comigo até ao fim\nDiz que sim!`
+      },
+      {
+        id: "song-5",
+        title: "Zouk Tropical",
+        artistId: "lew-robert",
+        artistName: "Lew Robert",
+        genre: "Kizomba",
+        coverUrl: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+        price: 50,
+        duration: "6:02",
+        lyrics: `[Intro]\nLew Robert a comandar!\nDJ, solta a batida tropical!\nVamos dançar!\n\n[Verso 1]\nPasso a passo, corpo a corpo\nO ritmo quente do Zouk\nLuzes suaves na pista\nEsta noite é uma conquista\n\n[Refrão]\nZouk Tropical a bater\nAté o dia amanhecer\nMexe o corpo, vem sentir\nLew Robert vai-te conduzir!`
+      },
+      {
+        id: "song-6",
+        title: "Voz da Rua",
+        artistId: "libra-krg",
+        artistName: "Libra Krg",
+        genre: "Rap",
+        coverUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        price: 50,
+        duration: "5:22",
+        lyrics: `[Intro]\nLibra Krg...\nRap de intervenção!\nA voz de quem não se cala!\n\n[Verso 1]\nOlho nos olhos da minha cidade\nBusco justiça, busco verdade\nA voz da rua rima consciente\nPela esperança da nossa gente\n\n[Refrão]\nEsta é a voz da rua a gritar\nNinguém nos vai silenciar\nLírica consciente de intervenção\nLibra Krg na missão!`
+      },
+      {
+        id: "song-7",
+        title: "AfroHouse Night",
+        artistId: "lickson-sacur",
+        artistName: "Lickson Sacur",
+        genre: "AfroHouse",
+        coverUrl: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&auto=format&fit=crop",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        price: 55,
+        duration: "6:40",
+        lyrics: `[Intro]\nLickson Sacur!\nSente o baixo do AfroHouse!\nBatidas profundas!\n\n[Verso 1]\nTambores da noite a rufar\nO corpo não pode parar\nDança hipnótica e pura\nEsta batida nos cura\n\n[Refrão]\nAfroHouse Night a vibrar\nToda a gente a celebrar\nSJ Machel a produzir\nLickson Sacur a conduzir!`
+      }
+    ];
+    await Song.insertMany(defaultSongs);
+    console.log('✅ Catálogo de músicas semeado com sucesso!');
 
     // C. Seed de Eventos
-    const eventCount = await Event.countDocuments();
-    if (eventCount === 0) {
-      console.log('🌱 Banco vazio. A semear agenda de eventos padrão...');
-      const defaultEvents = [
-        {
-          id: "event-1",
-          title: "SJ Machel Festival 2026",
-          date: "2026-06-25",
-          location: "Maputo Arena, Maputo",
-          price: 800,
-          bannerUrl: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=600&auto=format&fit=crop",
-          desc: "O festival anual da agência. Reunindo todo o roster oficial num palco monumental com luzes neon, convidados internacionais e 10 horas de música sem parar.",
-          artistId: "dj-machel"
-        },
-        {
-          id: "event-2",
-          title: "Amapiano Sunset Jam",
-          date: "2026-05-30",
-          location: "Coconuts Live, Maputo",
-          price: 500,
-          bannerUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600&auto=format&fit=crop",
-          desc: "Desfrute do fim de tarde perfeito à beira da piscina. Comanda Yasmine Cruz com um set especial de Amapiano ao vivo e DJs convidados do cenário nacional.",
-          artistId: "yasmine-cruz"
-        },
-        {
-          id: "event-3",
-          title: "Noite de Gala Marrabenta",
-          date: "2026-07-10",
-          location: "Franco-Moçambicano, Maputo",
-          price: 1200,
-          bannerUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
-          desc: "Uma celebração sofisticada da música tradicional. Concerto solo de Valdano King com uma orquestra clássica interpretando os maiores hits da Marrabenta.",
-          artistId: "valdano-king"
-        }
-      ];
-      await Event.insertMany(defaultEvents);
-      console.log('✅ Agenda de eventos semeada com sucesso!');
-    }
+    console.log('🌱 A semear agenda de eventos padrão dos novos artistas...');
+    const defaultEvents = [
+      {
+        id: "event-1",
+        title: "Gala Kizomba & AfroHouse Moçambique",
+        date: "2026-06-25",
+        location: "Coconuts Live, Maputo",
+        price: 1000,
+        bannerUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600&auto=format&fit=crop",
+        desc: "A maior celebração de Kizomba e AfroHouse da capital. Concerto especial de Lickson Sacur e convidados, com DJs internacionais e pista ao ar livre.",
+        artistId: "lickson-sacur"
+      },
+      {
+        id: "event-2",
+        title: "KRG Rap & HipHop Showcase",
+        date: "2026-07-30",
+        location: "Maputo Arena, Maputo",
+        price: 600,
+        bannerUrl: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=600&auto=format&fit=crop",
+        desc: "Uma noite explosiva de Rap moçambicano. Performances ao vivo das maiores referências do KRG Squad: Vibe Krg e Libra Krg, com batalhas de improviso.",
+        artistId: "vibe-krg"
+      },
+      {
+        id: "event-3",
+        title: "Festival Marrabenta da Mafalala",
+        date: "2026-08-15",
+        location: "Centro Mafalala, Maputo",
+        price: 400,
+        bannerUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
+        desc: "Celebração histórica dos ritmos moçambicanos. Grande show de Arramane Music resgatando o ritmo das acácias com guitarras acústicas tradicionais.",
+        artistId: "arramane-music"
+      }
+    ];
+    await Event.insertMany(defaultEvents);
+    console.log('✅ Agenda de eventos semeada com sucesso!');
 
   } catch (err) {
     console.error('⚠️ Erro ao semear dados iniciais:', err.message);
