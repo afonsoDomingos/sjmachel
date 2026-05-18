@@ -141,7 +141,7 @@ async function seedDatabase() {
         name: "Vibe Krg",
         genre: "Rap",
         bannerImg: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600&auto=format&fit=crop",
-        photo: "https://www.artmajeur.com/vibekrg/es",
+        photo: "Logotipo Oficial.png",
         bio: "Líder da nova escola do Rap nacional. Vibe Krg combina lírica afiada, flows extremamente dinâmicos e rimas com a força das ruas de Maputo.",
         baseFee: 35000,
         hourlyRate: 8000
