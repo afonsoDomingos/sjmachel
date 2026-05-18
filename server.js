@@ -185,10 +185,40 @@ async function seedDatabase() {
         bio: "O peso do Rap Consciente. Libra Krg aborda temas de intervenção social de forma lírica, expressando os anseios e as vozes da juventude.",
         baseFee: 35000,
         hourlyRate: 8000
+      },
+      {
+        id: "edvige-manaina",
+        name: "Edvige Manaina",
+        genre: "Amapiano",
+        bannerImg: "Logotipo Oficial.png",
+        photo: "Logotipo Oficial.png",
+        bio: "A nova diva do Amapiano moçambicano. Edvige Manaina combina uma voz melodiosa e potente com batidas eletrónicas envolventes e modernas.",
+        baseFee: 30000,
+        hourlyRate: 7000
+      },
+      {
+        id: "afropiano",
+        name: "AfroPiano",
+        genre: "Amapiano",
+        bannerImg: "Logotipo Oficial.png",
+        photo: "Logotipo Oficial.png",
+        bio: "Pioneiros da fusão do Afro House com Amapiano em Moçambique. O duo AfroPiano cria sets explosivos que são sinónimo de festa e vibração pura.",
+        baseFee: 35000,
+        hourlyRate: 8000
+      },
+      {
+        id: "jp",
+        name: "JP",
+        genre: "Marrabenta",
+        bannerImg: "Logotipo Oficial.png",
+        photo: "Logotipo Oficial.png",
+        bio: "O virtuoso da nova geração da Marrabenta. JP traz o ritmo tradicional das acácias misturado com a energia contagiante do pop moderno.",
+        baseFee: 25000,
+        hourlyRate: 6000
       }
     ];
     await Artist.insertMany(defaultArtists);
-    console.log('✅ 6 Artistas da agência semeados com sucesso!');
+    console.log('✅ Artistas da agência semeados com sucesso!');
 
     // B. Seed de Músicas
     console.log('🌱 A semear catálogo de músicas padrão dos novos artistas...');
@@ -276,6 +306,42 @@ async function seedDatabase() {
         price: 55,
         duration: "6:40",
         lyrics: `[Intro]\nLickson Sacur!\nSente o baixo do AfroHouse!\nBatidas profundas!\n\n[Verso 1]\nTambores da noite a rufar\nO corpo não pode parar\nDança hipnótica e pura\nEsta batida nos cura\n\n[Refrão]\nAfroHouse Night a vibrar\nToda a gente a celebrar\nSJ Machel a produzir\nLickson Sacur a conduzir!`
+      },
+      {
+        id: "song-8",
+        title: "Nossa Dança",
+        artistId: "edvige-manaina",
+        artistName: "Edvige Manaina",
+        genre: "Amapiano",
+        coverUrl: "Logotipo Oficial.png",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        price: 50,
+        duration: "4:50",
+        lyrics: `[Intro]\nEdvige Manaina...\nSente esta melodia doce...\nAmapiano que apaixona!\n\n[Verso 1]\nO vento sopra suave no mar\nConvida os nossos corpos a dançar\nCom este ritmo a nos envolver\nEu só quero dançar com você\n\n[Refrão]\nEsta é a nossa dança de amor\nOnde a batida apaga a dor\nDança comigo até amanhecer\nEdvige Manaina vai-te aquecer!`
+      },
+      {
+        id: "song-9",
+        title: "Batida Quente",
+        artistId: "afropiano",
+        artistName: "AfroPiano",
+        genre: "Amapiano",
+        coverUrl: "Logotipo Oficial.png",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+        price: 55,
+        duration: "5:30",
+        lyrics: `[Intro]\nAfroPiano na batida!\nSente o peso do log drum!\nMoçambique a vibrar!\n\n[Verso 1]\nO grave bate profundo no chão\nAcelera o batimento do coração\nRitmo contagiante de Amapiano\nQue faz dançar todo o ano\n\n[Refrão]\nEsta batida quente a ferver\nNão há como não se mexer\nAfroPiano comanda a pista\nO maior som da playlist!`
+      },
+      {
+        id: "song-10",
+        title: "Ritmo das Acácias",
+        artistId: "jp",
+        artistName: "JP",
+        genre: "Marrabenta",
+        coverUrl: "Logotipo Oficial.png",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+        price: 45,
+        duration: "4:15",
+        lyrics: `[Intro]\nJP com a guitarra de Marrabenta!\nMaputo de braços abertos!\nSente a tradição!\n\n[Verso 1]\nNas ruas floridas de sol e cor\nCantamos a nossa terra com amor\nA guitarra chora um som do passado\nQue no presente é celebrated\n\n[Refrão]\nMarrabenta viva sob as acácias\nJP agradece com todas as graças\nDança moço, dança menina\nEsta energia nos ilumina!`
       }
     ];
     await Song.insertMany(defaultSongs);
