@@ -11,11 +11,11 @@
   --bg-glass-card: rgba(22, 22, 28, 0.65);
   --bg-glass-card-hover: rgba(30, 30, 38, 0.85);
   --border-glass: rgba(255, 255, 255, 0.06);
-  --border-glass-focus: rgba(123, 44, 191, 0.4);
+  --border-glass-focus: rgba(197, 160, 43, 0.4);
   
   /* Cores de Destaque (Brand Colors) */
-  --primary-purple: #7b2cbf;
-  --primary-magenta: #e01e37;
+  --primary-purple: #c5a02b;
+  --primary-magenta: #aa771c;
   --spotify-green: #1db954;
   --neon-cyan: #00f5d4;
   --electric-gold: #ffb703;
@@ -31,13 +31,13 @@
   --font-body: 'Inter', sans-serif;
 
   /* Gradientes Premium */
-  --grad-premium: linear-gradient(135deg, #7b2cbf 0%, #e01e37 100%);
+  --grad-premium: linear-gradient(135deg, #c5a02b 0%, #ffd700 50%, #aa771c 100%);
   --grad-glow: linear-gradient(90deg, #1db954 0%, #00f5d4 100%);
   --grad-dark-overlay: linear-gradient(to top, rgba(8, 8, 10, 1) 0%, rgba(8, 8, 10, 0.8) 40%, rgba(8, 8, 10, 0) 100%);
   --grad-card-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 100%);
   
   /* Sombras & Transições */
-  --shadow-neon: 0 0 15px rgba(123, 44, 191, 0.35);
+  --shadow-neon: 0 0 15px rgba(197, 160, 43, 0.35);
   --shadow-green: 0 0 15px rgba(29, 185, 84, 0.35);
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-fast: all 0.15s ease;
@@ -187,7 +187,7 @@ body {
 
 .menu-item.active {
   color: var(--text-white);
-  background: linear-gradient(90deg, rgba(123, 44, 191, 0.2) 0%, rgba(224, 30, 55, 0.05) 100%);
+  background: linear-gradient(90deg, rgba(197, 160, 43, 0.2) 0%, rgba(170, 119, 28, 0.05) 100%);
   border-left: 3px solid var(--primary-purple);
 }
 
@@ -696,12 +696,12 @@ body {
 .btn-primary {
   background: var(--grad-premium);
   color: var(--text-white);
-  box-shadow: 0 4px 15px rgba(224, 30, 55, 0.25);
+  box-shadow: 0 4px 15px rgba(197, 160, 43, 0.25);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(224, 30, 55, 0.4);
+  box-shadow: 0 6px 20px rgba(197, 160, 43, 0.4);
 }
 
 .btn-glowing {
@@ -721,7 +721,7 @@ body {
 }
 
 .btn-outline:hover {
-  background: rgba(123, 44, 191, 0.1);
+  background: rgba(197, 160, 43, 0.1);
 }
 
 .btn-glass {
@@ -1102,7 +1102,7 @@ body {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.color-purple { color: #9d4edd !important; background: rgba(157, 78, 221, 0.15) !important; }
+.color-purple { color: #d4af37 !important; background: rgba(212, 175, 55, 0.15) !important; }
 .color-green { color: #1db954 !important; background: rgba(29, 185, 84, 0.15) !important; }
 .color-yellow { color: #ffb703 !important; background: rgba(255, 183, 3, 0.15) !important; }
 .color-cyan { color: #00f5d4 !important; background: rgba(0, 245, 212, 0.15) !important; }
@@ -1306,7 +1306,7 @@ textarea {
 
 .payment-method-card input:checked + .payment-card-content {
   border-color: var(--primary-purple);
-  background: rgba(123, 44, 191, 0.1);
+  background: rgba(197, 160, 43, 0.1);
 }
 
 .payment-logo {
@@ -2170,7 +2170,7 @@ body.playing-state .equalizer-bars-animation {
 }
 
 .btn-upload:hover {
-  background: rgba(123, 44, 191, 0.1);
+  background: rgba(197, 160, 43, 0.1);
   border-color: var(--neon-cyan);
 }
 
