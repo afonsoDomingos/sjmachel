@@ -1,0 +1,31 @@
+{
+  "name": "sjmachel-agency-platform",
+  "version": "1.0.0",
+  "description": "Plataforma Premium da Agência SJ Machel - Agenciamento Artístico, Produção de Eventos, Loja de Música e Player Integrado Estilo Spotify. Alimentado por Node.js e MongoDB real.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "spotify",
+    "music",
+    "agency",
+    "events",
+    "mongodb",
+    "m-pesa",
+    "cloudinary"
+  ],
+  "author": "Antigravity AI",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

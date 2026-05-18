@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SJ Machel Agency | Plataforma de Agenciamento, Eventos e Música</title>
+  
+  <!-- Fontes Premium de Alta Qualidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Globais -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Biblioteca de Ícones Lucide (Premium e Moderno) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Notificação Toast Flutuante -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- CONTAINER PRINCIPAL DO APP -->
+  <div class="app-container">
+    
+    <!-- 1. SIDEBAR ESQUERDA (Navegação Estilo Spotify) -->
+    <aside class="sidebar">
+      <!-- Branding Logo -->
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <img src="Logo Sj.png" alt="SJ Machel Logo" style="width: 44px; height: 44px; object-fit: contain; border-radius: 8px; border: 1px solid var(--border-glass);">
+        </div>
+        <div class="logo-text">
+          <h1>SJ MACHEL</h1>
+          <span>ARTISTIC AGENCY</span>
+        </div>
+      </div>
+
+      <!-- Menu de Navegação -->
+      <nav class="sidebar-menu">
+        <ul>
+          <li class="menu-item active" data-target="view-home" id="nav-home">
+            <i data-lucide="home"></i>
+            <span>Início</span>
+          </li>
+          <li class="menu-item" data-target="view-roster" id="nav-roster">
+            <i data-lucide="users"></i>
+            <span>Artistas & Agenciamento</span>
+          </li>
+          <li class="menu-item" data-target="view-events" id="nav-events">
+            <i data-lucide="calendar"></i>
+            <span>Eventos & Bilhetes</span>
+          </li>
+          <li class="menu-item" data-target="view-store" id="nav-store">
+            <i data-lucide="music"></i>
+            <span>Loja de Música</span>
+          </li>
+          <li class="menu-item" data-target="view-portal" id="nav-portal">
+            <i data-lucide="sliders"></i>
+            <span>Portal da Agência</span>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Divisor Estilizado -->
+      <div class="sidebar-divider"></div>
+
+      <!-- Atalho da Biblioteca / Carrinho Integrado -->
+      <div class="sidebar-library">
+        <div class="library-header" data-target="view-cart" id="nav-cart-header">
+          <div class="library-title">
+            <i data-lucide="shopping-cart"></i>
+            <span>Carrinho de Compras</span>
+          </div>
+          <span class="cart-badge" id="cart-badge-count">0</span>
+        </div>
+        
+        <div class="sidebar-cart-preview" id="sidebar-cart-list">
+          <p class="empty-cart-text">O seu carrinho está vazio.</p>
+        </div>
+        
+        <div class="sidebar-cart-checkout-btn-wrapper" id="sidebar-checkout-wrapper" style="display: none;">
+          <div class="sidebar-cart-total">
+            <span>Total:</span>
+            <span id="sidebar-cart-total-value">0.00 MT</span>
+          </div>
+          <button class="btn btn-primary btn-sm btn-block" id="sidebar-checkout-btn">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+
+      <!-- Rodapé do Sidebar -->
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar">
+            <span>SM</span>
+          </div>
+          <div class="user-info">
+            <span class="user-name">Convidado Premium</span>
+            <span class="user-role">Agência Client</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. PAINEL DE CONTEÚDO PRINCIPAL (Dinamizado por Javascript) -->
+    <main class="main-content">
+      
+      <!-- Cabeçalho Superior Fixo/Flutuante com Gradiente de Opacidade -->
+      <header class="main-header">
+        <div class="header-nav-buttons">
+          <button class="nav-btn disabled"><i data-lucide="chevron-left"></i></button>
+          <button class="nav-btn disabled"><i data-lucide="chevron-right"></i></button>
+        </div>
+        
+        <!-- Barra de Pesquisa Rápida -->
+        <div class="header-search-bar">
+          <i data-lucide="search"></i>
+          <input type="text" id="global-search-input" placeholder="Pesquise por artistas, músicas ou eventos...">
+        </div>
+
+        <!-- Botões de Ação Direta -->
+        <div class="header-actions">
+          <button class="btn btn-outline" id="header-btn-booking" data-target="view-roster">
+            <i data-lucide="briefcase"></i> Agendar Artista
+          </button>
+          <button class="btn btn-primary" id="header-btn-cart" data-target="view-cart">
+            <i data-lucide="shopping-bag"></i> <span id="header-cart-total">0.00 MT</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEWPORTS (DIFERENTES PÁGINAS) -->
+      <div class="views-wrapper">
+        
+        <!-- =================== VIEW 1: HOME =================== -->
+        <section id="view-home" class="content-view active-view">
+          
+          <!-- Banner Hero Destaque -->
+          <div class="hero-banner" id="hero-spotlight">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <span class="badge badge-accent">SPOTLIGHT ARTISTA</span>
+              <h2 id="hero-title">YASMINE CRUZ</h2>
+              <p id="hero-description">A voz de ouro do Amapiano e Soul em Moçambique. Lançamento do novo álbum "Florescer" e início da Tour Nacional com a chancela da SJ Machel Agency.</p>
+              <div class="hero-actions-row">
+                <button class="btn btn-primary btn-lg" id="hero-play-btn">
+                  <i data-lucide="play" class="fill-current"></i> Ouvir Agora
+                </button>
+                <button class="btn btn-glass btn-lg" id="hero-book-btn">
+                  <i data-lucide="calendar-plus"></i> Reservar Show
+                </button>
+              </div>
+            </div>
+            <!-- Imagem de Fundo Dinâmica via CSS -->
+          </div>
+
+          <!-- Secção 1: Músicas Populares / Mais Tocadas -->
+          <div class="section-container">
+            <div class="section-header">
+              <h3>Músicas em Destaque</h3>
+              <span class="section-subtitle">Ouve as melhores faixas dos nossos artistas e apoia comprando a versão completa.</span>
+            </div>
+            
+            <div class="tracks-list-container" id="trending-tracks-container">
+              <!-- Renderizado dinamicamente pelo Javascript -->
+            </div>
+          </div>
+
+          <!-- Secção 2: Nossos Artistas Agenciados -->
+          <div class="section-container">
+            <div class="section-header">
+              <h3>Roster de Artistas Oficiais</h3>
+              <span class="section-subtitle">Exclusividade SJ Machel Agency. Os melhores talentos prontos para o seu evento.</span>
+            </div>
+            
+            <div class="artists-grid-container" id="artists-cards-container">
+              <!-- Renderizado dinamicamente pelo Javascript -->
+            </div>
+          </div>
+
+          <!-- Secção 3: Próximos Grandes Eventos -->
+          <div class="section-container">
+            <div class="section-header">
+              <h3>Eventos & Festivais Agendados</h3>
+              <span class="section-subtitle">Garanta já os seus bilhetes para os concertos mais badalados.</span>
+            </div>
+            
+            <div class="events-grid-container" id="events-cards-container">
+              <!-- Renderizado dinamicamente pelo Javascript -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =================== VIEW 2: ROSTER / ARTISTS =================== -->
+        <section id="view-roster" class="content-view">
+          <div class="page-title-header">
+            <h2>Roster de Artistas</h2>
+            <p>Contrate e reserve shows com os maiores ícones da música moderna. Suporte a contratos corporativos, festivais e eventos privados.</p>
+          </div>
+          
+          <div class="filter-bar">
+            <button class="filter-chip active" data-genre="all">Todos</button>
+            <button class="filter-chip" data-genre="Amapiano">Amapiano</button>
+            <button class="filter-chip" data-genre="Marrabenta">Marrabenta</button>
+            <button class="filter-chip" data-genre="Afro House">Afro House</button>
+            <button class="filter-chip" data-genre="Pandza">Pandza</button>
+          </div>
+
+          <div class="artists-roster-full-grid" id="full-roster-grid">
+            <!-- Renderizado dinamicamente pelo Javascript -->
+          </div>
+        </section>
+
+        <!-- =================== VIEW 3: EVENTS =================== -->
+        <section id="view-events" class="content-view">
+          <div class="page-title-header">
+            <h2>Festivais, Shows & Eventos</h2>
+            <p>Calendário oficial de produções e parcerias da SJ Machel Agency. Adquira bilhetes de forma segura com M-Pesa, e-Mola ou Cartão.</p>
+          </div>
+
+          <div class="events-showcase-grid" id="full-events-grid">
+            <!-- Renderizado dinamicamente pelo Javascript -->
+          </div>
+        </section>
+
+        <!-- =================== VIEW 4: STORE =================== -->
+        <section id="view-store" class="content-view">
+          <div class="page-title-header">
+            <h2>Loja de Música Digital</h2>
+            <p>Adquira faixas de áudio em formato premium WAV/MP3 de alta fidelidade e apoie directamente a carreira dos nossos talentosos artistas.</p>
+          </div>
+
+          <div class="store-layout-grid">
+            <!-- Tabela Principal de Músicas -->
+            <div class="store-tracks-table-wrapper">
+              <table class="store-tracks-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Título</th>
+                    <th>Artista</th>
+                    <th>Álbum / Estilo</th>
+                    <th>Preço</th>
+                    <th class="text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="store-tracks-tbody">
+                  <!-- Renderizado dinamicamente pelo Javascript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== VIEW 5: AGENCY PORTAL (ADMIN) =================== -->
+        <section id="view-portal" class="content-view">
+          <div class="page-title-header">
+            <h2>Portal de Administração & Artista</h2>
+            <p>Espaço reservado para gestão da SJ Machel Agency. Adicione novas músicas à loja, crie novos eventos na agenda ou agencie novos artistas no sistema.</p>
+          </div>
+
+          <div class="portal-grid">
+            <!-- Painel de Métricas Rápidas -->
+            <div class="portal-metrics-row">
+              <div class="metric-card">
+                <i data-lucide="users" class="color-purple"></i>
+                <div class="metric-info">
+                  <span class="metric-value" id="metric-artists-count">4</span>
+                  <span class="metric-label">Artistas Agenciados</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <i data-lucide="music" class="color-green"></i>
+                <div class="metric-info">
+                  <span class="metric-value" id="metric-tracks-count">8</span>
+                  <span class="metric-label">Músicas Disponíveis</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <i data-lucide="calendar" class="color-yellow"></i>
+                <div class="metric-info">
+                  <span class="metric-value" id="metric-events-count">3</span>
+                  <span class="metric-label">Eventos Agendados</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <i data-lucide="trending-up" class="color-cyan"></i>
+                <div class="metric-info">
+                  <span class="metric-value" id="metric-sales-total">4,250.00 MT</span>
+                  <span class="metric-label">Vendas Simuladas</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Formulários de Adição -->
+            <div class="portal-forms-container">
+              
+              <!-- Formulário 1: Nova Música -->
+              <div class="portal-form-card">
+                <div class="card-header">
+                  <i data-lucide="music-4"></i>
+                  <h4>Lançar Nova Música</h4>
+                </div>
+                <form id="form-add-track" class="portal-form">
+                  <div class="form-group">
+                    <label for="track-title">Nome da Música</label>
+                    <input type="text" id="track-title" required placeholder="Ex: Marrabenta do Amanhã">
+                  </div>
+                  
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="track-artist">Artista Relacionado</label>
+                      <select id="track-artist" required>
+                        <!-- Preenchido dinamicamente -->
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="track-genre">Estilo / Género</label>
+                      <input type="text" id="track-genre" required placeholder="Ex: Amapiano, Pandza">
+                    </div>
+                  </div>
+
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="track-price">Preço da Faixa (MT)</label>
+                      <input type="number" id="track-price" min="0" value="50" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="track-duration">Duração (Ex: 3:45)</label>
+                      <input type="text" id="track-duration" placeholder="3:40" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="track-audio-url">URL do Áudio (MP3)</label>
+                    <input type="url" id="track-audio-url" placeholder="https://exemplo.com/musica.mp3" required>
+                    <span class="input-tip">Pode usar ficheiros públicos ou áudio de exemplo.</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="track-cover-url">URL da Capa do Álbum</label>
+                    <input type="url" id="track-cover-url" placeholder="https://images.unsplash.com/...">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block">
+                    <i data-lucide="plus-circle"></i> Publicar na Loja
+                  </button>
+                </form>
+              </div>
+
+              <!-- Formulário 2: Novo Evento -->
+              <div class="portal-form-card">
+                <div class="card-header">
+                  <i data-lucide="calendar-plus"></i>
+                  <h4>Criar Novo Evento da Agência</h4>
+                </div>
+                <form id="form-add-event" class="portal-form">
+                  <div class="form-group">
+                    <label for="event-title">Nome do Evento</label>
+                    <input type="text" id="event-title" required placeholder="Ex: Maputo Glow Amapiano Festival">
+                  </div>
+
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="event-date">Data do Evento</label>
+                      <input type="date" id="event-date" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="event-location">Localização / Arena</label>
+                      <input type="text" id="event-location" required placeholder="Ex: Coconuts Live, Maputo">
+                    </div>
+                  </div>
+
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="event-ticket-price">Preço Unitário do Bilhete (MT)</label>
+                      <input type="number" id="event-ticket-price" min="0" value="500" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="event-artist">Artista Cabeça de Cartaz</label>
+                      <select id="event-artist" required>
+                        <!-- Preenchido dinamicamente -->
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="event-description">Descrição Breve do Evento</label>
+                    <textarea id="event-description" rows="3" placeholder="Insira detalhes sobre o cartaz, parcerias e o que esperar..." required></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="event-banner-url">URL da Imagem de Banner</label>
+                    <input type="url" id="event-banner-url" placeholder="https://images.unsplash.com/...">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-block">
+                    <i data-lucide="plus-circle"></i> Adicionar à Agenda
+                  </button>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- =================== VIEW 6: SHOPPING CART (COMPLETAR COMPRA) =================== -->
+        <section id="view-cart" class="content-view">
+          <div class="page-title-header">
+            <h2>Carrinho de Compras</h2>
+            <p>Reveja as suas escolhas, adicione ou remova itens e prossiga para o checkout seguro via carteiras móveis ou cartões de crédito.</p>
+          </div>
+
+          <div class="cart-layout-grid">
+            
+            <!-- Lista de Itens no Carrinho -->
+            <div class="cart-items-panel">
+              <div class="glass-card">
+                <div id="full-cart-items-container">
+                  <!-- Renderizado dinamicamente -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Resumo e Pagamento -->
+            <div class="cart-summary-panel">
+              <div class="glass-card summary-card">
+                <h4>Resumo do Pedido</h4>
+                <div class="summary-divider"></div>
+                
+                <div class="summary-row">
+                  <span>Músicas Selecionadas:</span>
+                  <span id="summary-songs-count">0</span>
+                </div>
+                <div class="summary-row">
+                  <span>Bilhetes de Evento:</span>
+                  <span id="summary-events-count">0</span>
+                </div>
+                
+                <div class="summary-divider"></div>
+                
+                <div class="summary-row total-row">
+                  <span>Subtotal:</span>
+                  <span id="summary-total-price">0.00 MT</span>
+                </div>
+
+                <div class="checkout-method-selector">
+                  <h5>Método de Pagamento</h5>
+                  <div class="payment-grid">
+                    <label class="payment-method-card active">
+                      <input type="radio" name="payment-method" value="mpesa" checked>
+                      <div class="payment-card-content">
+                        <span class="payment-logo mpesa">M-Pesa</span>
+                        <span>M-Pesa Vodacom</span>
+                      </div>
+                    </label>
+                    
+                    <label class="payment-method-card">
+                      <input type="radio" name="payment-method" value="emola">
+                      <div class="payment-card-content">
+                        <span class="payment-logo emola">e-Mola</span>
+                        <span>e-Mola Movitel</span>
+                      </div>
+                    </label>
+                    
+                    <label class="payment-method-card">
+                      <input type="radio" name="payment-method" value="card">
+                      <div class="payment-card-content">
+                        <i data-lucide="credit-card"></i>
+                        <span>Cartão Visa/MasterCard</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Formulário de Detalhes de Checkout -->
+                <div class="checkout-details-form" id="mpesa-emola-details">
+                  <div class="form-group">
+                    <label for="checkout-phone">Número de Telefone Associado (+258)</label>
+                    <input type="tel" id="checkout-phone" placeholder="84XXXXXXX ou 86XXXXXXX" value="841234567">
+                    <span class="input-tip">Irá receber uma mensagem no telemóvel para introduzir o seu PIN e aprovar o débito.</span>
+                  </div>
+                </div>
+
+                <div class="checkout-details-form" id="card-details" style="display: none;">
+                  <div class="form-group">
+                    <label for="card-num">Número do Cartão</label>
+                    <input type="text" id="card-num" placeholder="4000 1234 5678 9010">
+                  </div>
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="card-expiry">Validade</label>
+                      <input type="text" id="card-expiry" placeholder="MM/AA">
+                    </div>
+                    <div class="form-group">
+                      <label for="card-cvv">CVV</label>
+                      <input type="text" id="card-cvv" placeholder="123">
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block btn-glowing" id="btn-submit-order">
+                  <i data-lucide="shield-check"></i> Autorizar Pagamento de <span id="checkout-button-total">0.00 MT</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- 3. PAINEL DIREITO (Togglable - Letras de Músicas / Fila / Detalhes) -->
+    <aside class="right-panel expanded" id="right-panel">
+      <div class="panel-header">
+        <h4 id="panel-title">Letras & Detalhes</h4>
+        <button class="panel-close-btn" id="btn-close-right-panel"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="panel-scroll-content">
+        <!-- Visualizador de Disco Giratório Premium -->
+        <div class="vinyl-display-container">
+          <div class="vinyl-record" id="player-vinyl">
+            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&auto=format&fit=crop" alt="Capa Album" id="panel-song-cover">
+            <div class="vinyl-center"></div>
+          </div>
+        </div>
+
+        <div class="panel-song-meta">
+          <h3 id="panel-song-title">Amapiano Breeze</h3>
+          <span id="panel-song-artist">Yasmine Cruz</span>
+          <span class="badge badge-outline-accent" id="panel-song-genre">Amapiano</span>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <!-- Lyrics Container -->
+        <div class="lyrics-container">
+          <h5>Letra da Música</h5>
+          <div class="lyrics-scroll" id="panel-song-lyrics">
+            <p class="lyric-line active">[Intro]</p>
+            <p class="lyric-line">SJ Machel Agency apresenta...</p>
+            <p class="lyric-line">Sentir a batida a entrar no peito...</p>
+            <p class="lyric-line">[Refrão]</p>
+            <p class="lyric-line">Moçambique está a cantar</p>
+            <p class="lyric-line">Este ritmo vai-nos levar</p>
+            <p class="lyric-line">Amapiano a bater no chão...</p>
+            <p class="lyric-line">Yasmine Cruz na direcção!</p>
+            <p class="lyric-line">[Verso 1]</p>
+            <p class="lyric-line">Vem comigo que a noite é nossa</p>
+            <p class="lyric-line">Nenhum problema nos estorva</p>
+            <p class="lyric-line">Dançamos juntos até de manhã...</p>
+          </div>
+        </div>
+
+        <!-- Secção de Preços e Venda Direta da Música -->
+        <div class="panel-direct-buy-card" id="panel-buy-section">
+          <div class="price-badge">
+            <span class="currency">MT</span>
+            <span class="price-val" id="panel-song-price">50</span>
+          </div>
+          <p>Compre a versão MASTER original e apoie directamente o artista com downloads de alta qualidade (WAV/FLAC).</p>
+          <button class="btn btn-primary btn-block btn-sm" id="panel-direct-add-cart">
+            <i data-lucide="shopping-cart"></i> Adicionar Faixa
+          </button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 4. PLAYER DE ÁUDIO PERSISTENTE (Estilo Spotify - Fundo do Ecrã) -->
+  <footer class="player-bar">
+    
+    <!-- Lado Esquerdo: Info da Música Tocando -->
+    <div class="player-track-info">
+      <div class="track-cover-wrapper">
+        <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&auto=format&fit=crop" alt="Capa" id="player-track-cover">
+        <div class="equalizer-bars-animation" id="player-eq-animation">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+      <div class="track-text-details">
+        <span class="track-name" id="player-track-name">Carregando Faixa...</span>
+        <span class="track-artist" id="player-track-artist">SJ Machel Roster</span>
+      </div>
+      <!-- Botão de Compra Rápida da Faixa Ativa -->
+      <button class="player-action-btn" id="player-track-buy-shortcut" title="Adicionar música ao carrinho">
+        <i data-lucide="shopping-bag" class="icon-sm text-green"></i>
+      </button>
+    </div>
+
+    <!-- Lado Central: Controladores do Player & Linha de Tempo -->
+    <div class="player-controls-container">
+      <div class="player-buttons">
+        <button class="control-btn" id="player-btn-shuffle" title="Misturar Músicas"><i data-lucide="shuffle"></i></button>
+        <button class="control-btn" id="player-btn-prev" title="Anterior"><i data-lucide="skip-back"></i></button>
+        <button class="control-btn play-pause-btn" id="player-btn-play" title="Tocar / Pausar"><i data-lucide="play" class="fill-current"></i></button>
+        <button class="control-btn" id="player-btn-next" title="Próxima"><i data-lucide="skip-forward"></i></button>
+        <button class="control-btn" id="player-btn-repeat" title="Repetir"><i data-lucide="repeat"></i></button>
+      </div>
+
+      <div class="player-timeline">
+        <span class="time-stamp" id="player-time-current">0:00</span>
+        <div class="progress-bar-container" id="player-timeline-slider">
+          <div class="progress-bar-filled" id="player-timeline-fill" style="width: 0%;"></div>
+          <div class="progress-handle" id="player-timeline-handle" style="left: 0%;"></div>
+        </div>
+        <span class="time-stamp" id="player-time-duration">0:00</span>
+      </div>
+    </div>
+
+    <!-- Lado Direito: Volume & Toggles Auxiliares -->
+    <div class="player-auxiliary-controls">
+      <button class="control-btn" id="player-btn-toggle-lyrics" title="Letras & Info"><i data-lucide="mic-2"></i></button>
+      <button class="control-btn" id="player-btn-toggle-queue" title="Fila de Reprodução"><i data-lucide="list-music"></i></button>
+      
+      <div class="volume-control-wrapper">
+        <button class="control-btn" id="player-btn-mute" title="Mutar/Desmutar"><i data-lucide="volume-2"></i></button>
+        <div class="volume-slider-container" id="player-volume-slider">
+          <div class="volume-slider-filled" id="player-volume-fill" style="width: 80%;"></div>
+          <div class="volume-handle" id="player-volume-handle" style="left: 80%;"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ELEMENTOS DE MODAL (OVERLAYS) -->
+
+  <!-- A. MODAL DE RESERVA DE SHOW / AGENCIAMENTO -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="header-content">
+          <i data-lucide="briefcase" class="modal-icon color-purple"></i>
+          <div>
+            <h4>Contratar Artista - Booking Oficial</h4>
+            <span id="booking-artist-subtitle">Yasmine Cruz</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="btn-close-booking-modal"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-scroll-body">
+        <form id="form-booking-artist" class="modal-form">
+          <input type="hidden" id="booking-artist-id" value="">
+          
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="booking-client-name">Nome do Requerente / Empresa</label>
+              <input type="text" id="booking-client-name" placeholder="Ex: Cervejas de Moçambique, S.A." required>
+            </div>
+            <div class="form-group">
+              <label for="booking-client-email">Email de Contacto</label>
+              <input type="email" id="booking-client-email" placeholder="email@exemplo.co.mz" required>
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="booking-client-phone">Contacto Telefónico (+258)</label>
+              <input type="tel" id="booking-client-phone" placeholder="84XXXXXXX / 82XXXXXXX" required>
+            </div>
+            <div class="form-group">
+              <label for="booking-date">Data Pretendida</label>
+              <input type="date" id="booking-date" required>
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="booking-hours">Duração do Show (Horas)</label>
+              <input type="number" id="booking-hours" min="1" max="10" value="2" required>
+            </div>
+            <div class="form-group">
+              <label for="booking-event-type">Tipo de Evento</label>
+              <select id="booking-event-type" required>
+                <option value="festival">Festival de Grande Porte</option>
+                <option value="corporate">Evento Corporativo</option>
+                <option value="wedding">Casamento / Festa Privada</option>
+                <option value="concert">Concerto Solo de Arena</option>
+                <option value="club">Clubbing / Discoteca</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="booking-venue">Local e Cidade do Evento</label>
+            <input type="text" id="booking-venue" placeholder="Ex: Centro Cultural Franco-Moçambicano, Maputo" required>
+          </div>
+
+          <!-- Cartão de Estimativa Financeira Activa -->
+          <div class="booking-estimate-card">
+            <div class="estimate-line">
+              <span>Taxa Base de Agenciamento:</span>
+              <span id="booking-base-fee">0.00 MT</span>
+            </div>
+            <div class="estimate-line">
+              <span>Duração (<span id="booking-calc-hours">2</span>h):</span>
+              <span id="booking-duration-fee">0.00 MT</span>
+            </div>
+            <div class="estimate-line bold">
+              <span>Estimativa Total do Cachet:</span>
+              <span id="booking-total-estimate" class="color-yellow">0.00 MT</span>
+            </div>
+            <p class="estimate-note">*A taxa final está sujeita a negociação logística de viagens, som e iluminação técnica.</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block">
+            <i data-lucide="send"></i> Submeter Proposta de Contrato
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. TELA DE SUCESSO DE COMPRA COM QR CODE E DOWNLOADS -->
+  <div class="modal-overlay" id="checkout-success-modal">
+    <div class="modal-card max-w-sm success-modal">
+      <div class="success-icon-badge">
+        <i data-lucide="check-circle-2"></i>
+      </div>
+      
+      <h3>Pagamento Processado com Sucesso!</h3>
+      <p id="success-transaction-msg">A sua transação M-Pesa de 650.00 MT foi concluída com sucesso. SJ Machel Agency agradece o seu apoio!</p>
+      
+      <div class="success-divider"></div>
+      
+      <div class="success-actions-container">
+        
+        <!-- Tickets de Eventos Adquiridos -->
+        <div id="success-tickets-wrapper" class="success-download-section">
+          <h5>Os Seus Bilhetes de Eventos</h5>
+          <div class="ticket-qr-card">
+            <div class="qr-placeholder">
+              <!-- QR Code Simulado com SVG -->
+              <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#FFFFFF"/>
+                <rect x="10" y="10" width="20" height="20" fill="#000000"/>
+                <rect x="70" y="10" width="20" height="20" fill="#000000"/>
+                <rect x="10" y="70" width="20" height="20" fill="#000000"/>
+                <rect x="15" y="15" width="10" height="10" fill="#FFFFFF"/>
+                <rect x="75" y="15" width="10" height="10" fill="#FFFFFF"/>
+                <rect x="15" y="75" width="10" height="10" fill="#FFFFFF"/>
+                <!-- Padrão QR complexo -->
+                <rect x="40" y="10" width="10" height="5" fill="#000000"/>
+                <rect x="45" y="20" width="15" height="10" fill="#000000"/>
+                <rect x="10" y="40" width="20" height="10" fill="#000000"/>
+                <rect x="35" y="45" width="30" height="15" fill="#000000"/>
+                <rect x="70" y="40" width="10" height="25" fill="#000000"/>
+                <rect x="85" y="50" width="10" height="10" fill="#000000"/>
+                <rect x="15" y="60" width="5" height="5" fill="#000000"/>
+                <rect x="40" y="70" width="25" height="20" fill="#000000"/>
+                <rect x="75" y="75" width="15" height="15" fill="#000000"/>
+              </svg>
+            </div>
+            <div class="ticket-meta">
+              <span class="ticket-title" id="success-ticket-title">SJ Machel Festival</span>
+              <span class="ticket-code" id="success-ticket-code">TICKET #SJ-2026-99371</span>
+              <span class="ticket-tip">Mostre este código QR na entrada do recinto.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Músicas Digitais Prontas para Download -->
+        <div id="success-songs-wrapper" class="success-download-section">
+          <h5>Download de Músicas Adquiridas</h5>
+          <div class="download-list" id="success-songs-download-list">
+            <!-- Listagem dinámica -->
+          </div>
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" id="btn-close-success-modal">
+        Voltar à Plataforma
+      </button>
+    </div>
+  </div>
+
+  <!-- Script da Aplicação JS -->
+  <script src="app.js"></script>
+</body>
+</html>
