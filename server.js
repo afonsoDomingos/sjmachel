@@ -131,7 +131,7 @@ async function seedDatabase() {
         name: "Lickson Sacur",
         genre: "Kizomba & AfroHouse",
         bannerImg: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop",
-        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop",
+        photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3zwu_o21Q6ZU03wTndRLWFDBvDQpomEvB3w&s",
         bio: "Lickson Sacur é a sensação do Kizomba e AfroHouse em Moçambique. Com ritmos quentes e presença de palco magnética, é uma das maiores referências de pista de dança nacionais.",
         baseFee: 45000,
         hourlyRate: 10000
@@ -141,7 +141,7 @@ async function seedDatabase() {
         name: "Vibe Krg",
         genre: "Rap",
         bannerImg: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=600&auto=format&fit=crop",
-        photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop",
+        photo: "https://www.artmajeur.com/vibekrg/es",
         bio: "Líder da nova escola do Rap nacional. Vibe Krg combina lírica afiada, flows extremamente dinâmicos e rimas com a força das ruas de Maputo.",
         baseFee: 35000,
         hourlyRate: 8000
@@ -151,7 +151,7 @@ async function seedDatabase() {
         name: "Arramane Music",
         genre: "Marrabenta",
         bannerImg: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop",
-        photo: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=300&auto=format&fit=crop",
+        photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIg7aMZRqEjncW1oZbaIpQQmlnwWLKZdrMKg&s",
         bio: "A essência viva da Marrabenta moçambicana. Arramane Music funde guitarras clássicas tradicionais com arranjos contemporâneos de percussão urbana.",
         baseFee: 30000,
         hourlyRate: 7000
@@ -161,7 +161,7 @@ async function seedDatabase() {
         name: "GuilMan Silva",
         genre: "Kizomba",
         bannerImg: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600&auto=format&fit=crop",
-        photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop",
+        photo: "Logotipo Oficial.png",
         bio: "A voz romântica do Kizomba moderno. GuilMan Silva encanta corações por todo Moçambique com as suas melodias suaves e letras apaixonadas.",
         baseFee: 25000,
         hourlyRate: 6000
@@ -171,7 +171,7 @@ async function seedDatabase() {
         name: "Lew Robert",
         genre: "Kizomba",
         bannerImg: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
-        photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=300&auto=format&fit=crop",
+        photo: "Logotipo Oficial.png",
         bio: "Lew Robert traz a energia do Zouk e Kizomba para as pistas. Coreografias dinâmicas e batidas envolventes fazem dele um artista completo.",
         baseFee: 25000,
         hourlyRate: 6000
@@ -181,7 +181,7 @@ async function seedDatabase() {
         name: "Libra Krg",
         genre: "Rap",
         bannerImg: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=600&auto=format&fit=crop",
-        photo: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=300&auto=format&fit=crop",
+        photo: "Logotipo Oficial.png",
         bio: "O peso do Rap Consciente. Libra Krg aborda temas de intervenção social de forma lírica, expressando os anseios e as vozes da juventude.",
         baseFee: 35000,
         hourlyRate: 8000
