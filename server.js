@@ -118,7 +118,13 @@ const Order = mongoose.model('Order', OrderSchema);
 // ==========================================================================
 async function seedDatabase() {
   try {
-    // Limpar coleções existentes para garantir que apenas os artistas corretos da agência permaneçam no MongoDB Atlas
+    // Verificar se já existem artistas no banco de dados para evitar apagar dados criados pelo painel
+    const artistCount = await Artist.countDocuments();
+    if (artistCount > 0) {
+      console.log('ℹ️ O banco de dados do MongoDB Atlas já contém artistas. Ignorando seeder para proteger os seus dados criados no painel.');
+      return;
+    }
+
     console.log('🧹 A limpar registos antigos do MongoDB Atlas...');
     await Artist.deleteMany({});
     await Song.deleteMany({});
