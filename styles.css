@@ -419,7 +419,8 @@ body {
   width: 320px;
 }
 
-.header-search-bar i {
+.header-search-bar i,
+.header-search-bar svg {
   position: absolute;
   left: 12px;
   top: 50%;
@@ -427,6 +428,7 @@ body {
   color: var(--text-muted);
   width: 18px;
   height: 18px;
+  pointer-events: none;
 }
 
 .header-search-bar input {
