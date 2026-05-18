@@ -290,7 +290,7 @@ async function seedDatabase() {
         date: "2026-06-25",
         location: "Coconuts Live, Maputo",
         price: 1000,
-        bannerUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600&auto=format&fit=crop",
+        bannerUrl: "Logotipo Oficial.png",
         desc: "A maior celebração de Kizomba e AfroHouse da capital. Concerto especial de Lickson Sacur e convidados, com DJs internacionais e pista ao ar livre.",
         artistId: "lickson-sacur"
       },
@@ -300,7 +300,7 @@ async function seedDatabase() {
         date: "2026-07-30",
         location: "Maputo Arena, Maputo",
         price: 600,
-        bannerUrl: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=600&auto=format&fit=crop",
+        bannerUrl: "Logotipo Oficial.png",
         desc: "Uma noite explosiva de Rap moçambicano. Performances ao vivo das maiores referências do KRG Squad: Vibe Krg e Libra Krg, com batalhas de improviso.",
         artistId: "vibe-krg"
       },
@@ -310,7 +310,7 @@ async function seedDatabase() {
         date: "2026-08-15",
         location: "Centro Mafalala, Maputo",
         price: 400,
-        bannerUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
+        bannerUrl: "Logotipo Oficial.png",
         desc: "Celebração histórica dos ritmos moçambicanos. Grande show de Arramane Music resgatando o ritmo das acácias com guitarras acústicas tradicionais.",
         artistId: "arramane-music"
       }
