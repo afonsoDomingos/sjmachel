@@ -538,8 +538,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 6. INICIALIZAR SERVIDOR
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor Express da SJ Machel Agency rodando na porta ${PORT}`);
-  console.log(`👉 Aceda localmente em: http://localhost:${PORT}`);
-});
+// 6. INICIALIZAR SERVIDOR E EXPORTAR PARA VERCEL
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor Express da SJ Machel Agency rodando na porta ${PORT}`);
+    console.log(`👉 Aceda localmente em: http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
