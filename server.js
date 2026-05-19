@@ -402,19 +402,24 @@ async function seedDatabase() {
 // A. ARTISTAS API
 app.get('/api/artists', async (req, res) => {
   try {
+    console.log('📥 GET /api/artists - A carregar lista de artistas');
     const artists = await Artist.find();
     res.json(artists);
   } catch (err) {
+    console.error('❌ ERRO GET /api/artists:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
 
 app.post('/api/artists', async (req, res) => {
   try {
+    console.log('📤 POST /api/artists - A adicionar novo artista:', req.body.name);
     const newArtist = new Artist(req.body);
     const saved = await newArtist.save();
+    console.log('✅ Artista adicionado com sucesso:', saved.id);
     res.status(201).json(saved);
   } catch (err) {
+    console.error('❌ ERRO POST /api/artists:', err.message);
     res.status(400).json({ error: err.message });
   }
 });
@@ -422,15 +427,18 @@ app.post('/api/artists', async (req, res) => {
 // B. MÚSICAS API
 app.get('/api/songs', async (req, res) => {
   try {
+    console.log('📥 GET /api/songs - A carregar catálogo de músicas');
     const songs = await Song.find().sort({ _id: -1 }); // Músicas mais novas primeiro
     res.json(songs);
   } catch (err) {
+    console.error('❌ ERRO GET /api/songs:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
 
 app.post('/api/songs', async (req, res) => {
   try {
+    console.log('📤 POST /api/songs - A adicionar nova música:', req.body.title);
     const songData = req.body;
     // Garante ID único
     if (!songData.id) {
@@ -438,8 +446,10 @@ app.post('/api/songs', async (req, res) => {
     }
     const newSong = new Song(songData);
     const saved = await newSong.save();
+    console.log('✅ Música adicionada com sucesso:', saved.id);
     res.status(201).json(saved);
   } catch (err) {
+    console.error('❌ ERRO POST /api/songs:', err.message);
     res.status(400).json({ error: err.message });
   }
 });
@@ -447,23 +457,28 @@ app.post('/api/songs', async (req, res) => {
 // C. EVENTOS API
 app.get('/api/events', async (req, res) => {
   try {
+    console.log('📥 GET /api/events - A carregar agenda de eventos');
     const events = await Event.find().sort({ date: 1 }); // Mais próximos primeiro
     res.json(events);
   } catch (err) {
+    console.error('❌ ERRO GET /api/events:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
 
 app.post('/api/events', async (req, res) => {
   try {
+    console.log('📤 POST /api/events - A adicionar novo evento:', req.body.title);
     const eventData = req.body;
     if (!eventData.id) {
       eventData.id = 'event-' + Date.now();
     }
     const newEvent = new Event(eventData);
     const saved = await newEvent.save();
+    console.log('✅ Evento agendado com sucesso:', saved.id);
     res.status(201).json(saved);
   } catch (err) {
+    console.error('❌ ERRO POST /api/events:', err.message);
     res.status(400).json({ error: err.message });
   }
 });
@@ -471,19 +486,24 @@ app.post('/api/events', async (req, res) => {
 // D. CONTRATAÇÕES (BOOKING) API
 app.post('/api/bookings', async (req, res) => {
   try {
+    console.log('📤 POST /api/bookings - Novo pedido de contratação recebido');
     const newBooking = new Booking(req.body);
     const saved = await newBooking.save();
+    console.log('✅ Contratação registada:', saved._id);
     res.status(201).json(saved);
   } catch (err) {
+    console.error('❌ ERRO POST /api/bookings:', err.message);
     res.status(400).json({ error: err.message });
   }
 });
 
 app.get('/api/bookings', async (req, res) => {
   try {
+    console.log('📥 GET /api/bookings - A consultar contratos da agência');
     const bookings = await Booking.find().sort({ createdAt: -1 });
     res.json(bookings);
   } catch (err) {
+    console.error('❌ ERRO GET /api/bookings:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -491,19 +511,24 @@ app.get('/api/bookings', async (req, res) => {
 // E. PEDIDOS / VENDAS API
 app.post('/api/orders', async (req, res) => {
   try {
+    console.log('📤 POST /api/orders - Nova venda (Músicas/Bilhetes) recebida');
     const newOrder = new Order(req.body);
     const saved = await newOrder.save();
+    console.log('✅ Venda registada:', saved._id);
     res.status(201).json(saved);
   } catch (err) {
+    console.error('❌ ERRO POST /api/orders:', err.message);
     res.status(400).json({ error: err.message });
   }
 });
 
 app.get('/api/orders', async (req, res) => {
   try {
+    console.log('📥 GET /api/orders - A consultar histórico de vendas');
     const orders = await Order.find().sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
+    console.error('❌ ERRO GET /api/orders:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
